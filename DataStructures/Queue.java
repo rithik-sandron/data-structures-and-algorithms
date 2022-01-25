@@ -1,13 +1,9 @@
-// Enqueue -> adding/offering to the back 
+package DataStructures;
+
+// Enqueue -> adding/offering to the back
 // Dequeue -> removing/polling from front
 @SuppressWarnings("unchecked")
-public class Queue<T> implements AbstractTypes<T>, Iterable<T> {
-
-    private static final int DEFAULT_INITIAL_CAPACITY = 10;
-
-    private transient T[] array;
-    private int capacity;
-    private int size;
+public class Queue<T> extends AbstractStructures<T> implements Structures<T>, Iterable<T> {
 
     public Queue() {
         this(DEFAULT_INITIAL_CAPACITY);
@@ -15,31 +11,20 @@ public class Queue<T> implements AbstractTypes<T>, Iterable<T> {
 
     public Queue(int capacity) {
         if (capacity <= 0)
-            throw new IllegalArgumentException("Array inital size cannot be " + capacity);
+            throw new IllegalArgumentException("DataStructures.Array inital size cannot be " + capacity);
         this.size = 0;
         this.capacity = capacity;
         this.array = (T[]) new Object[capacity];
     }
 
-    public int getCapacity() {
-        return capacity;
-    }
-
-    public int size() {
-        return size;
-    }
-
-    public boolean isEmpty() {
-        return size == 0;
-    }
-
     public T peek() {
         if (size == 0)
-            throw new IllegalAccessError("Queue is empty");
+            throw new IllegalAccessError("DataStructures.Queue is empty");
         return this.array[0];
     }
 
     public T enqueue(T element) {
+        this.checkMutability();
         if (null == element)
             throw new IllegalArgumentException("Element cannot be null");
 
@@ -56,8 +41,9 @@ public class Queue<T> implements AbstractTypes<T>, Iterable<T> {
     }
 
     public T dequeue() {
+        this.checkMutability();
         if (this.isEmpty())
-            throw new IllegalAccessError("Queue is empty");
+            throw new IllegalAccessError("DataStructures.Queue is empty");
         T dequeued = this.array[0];
         for (int i = 0; i < size - 1; i++) {
             this.array[i] = this.array[i + 1];
@@ -67,7 +53,13 @@ public class Queue<T> implements AbstractTypes<T>, Iterable<T> {
     }
 
     public void reverse() {
-        this.array = AbstractTypes.super.reverse(this.array, this.capacity);
+        this.checkMutability();
+        this.reverseStructure();
+    }
+
+    public ImmutableStructures<T> toImmutableStructure() {
+        this.checkMutability();
+        return this.toImmutableStructure(this.array);
     }
 
     @Override

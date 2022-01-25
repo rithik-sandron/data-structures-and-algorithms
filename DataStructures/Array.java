@@ -1,10 +1,11 @@
-@SuppressWarnings("unchecked")
-public class Array<T> implements AbstractTypes<T>, Iterable<T> {
-    private static final int DEFAULT_INITIAL_CAPACITY = 10;
+package DataStructures;
 
-    private transient T[] array;
-    private int capacity;
-    private int size;
+import java.lang.instrument.UnmodifiableClassException;
+import java.util.Arrays;
+
+@SuppressWarnings("unchecked")
+public class Array<T> extends AbstractStructures<T> implements Structures<T>, Iterable<T> {
+
 
     public Array() {
         this(DEFAULT_INITIAL_CAPACITY);
@@ -18,22 +19,10 @@ public class Array<T> implements AbstractTypes<T>, Iterable<T> {
 
     public Array(int capacity) {
         if (capacity <= 0)
-            throw new IllegalArgumentException("Array inital size cannot be " + capacity);
+            throw new IllegalArgumentException("DataStructures.Array inital size cannot be " + capacity);
         this.size = 0;
         this.capacity = capacity;
         this.array = (T[]) new Object[capacity];
-    }
-
-    public int getCapacity() {
-        return capacity;
-    }
-
-    public int size() {
-        return size;
-    }
-
-    public boolean isEmpty() {
-        return size == 0;
     }
 
     public T peek() {
@@ -47,6 +36,7 @@ public class Array<T> implements AbstractTypes<T>, Iterable<T> {
     }
 
     public T push(T element) {
+        this.checkMutability();
         if (null == element)
             throw new IllegalArgumentException("Element cannot be null");
 
@@ -63,6 +53,7 @@ public class Array<T> implements AbstractTypes<T>, Iterable<T> {
     }
 
     public T pop() {
+        this.checkMutability();
         if (this.isEmpty())
             throw new IllegalAccessError("Stack is empty");
         T popped = this.array[size - 1];
@@ -71,7 +62,13 @@ public class Array<T> implements AbstractTypes<T>, Iterable<T> {
     }
 
     public void reverse() {
-        this.array = AbstractTypes.super.reverse(this.array, this.capacity);
+        this.checkMutability();
+        this.reverseStructure();
+    }
+
+    public ImmutableStructures<T> toImmutableStructure() {
+        this.checkMutability();
+        return this.toImmutableStructure(this.array);
     }
 
     @Override
