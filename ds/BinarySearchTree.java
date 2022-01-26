@@ -1,4 +1,4 @@
-package DataStructures;
+package ds;
 
 @SuppressWarnings("unchecked")
 public class BinarySearchTree {

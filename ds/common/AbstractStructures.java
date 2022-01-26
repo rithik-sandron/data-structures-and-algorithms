@@ -1,4 +1,4 @@
-package DataStructures;
+package ds.common;
 
 @SuppressWarnings("unchecked")
 public abstract class AbstractStructures<T> implements Structures<T> {

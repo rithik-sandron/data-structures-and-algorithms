@@ -1,15 +1,20 @@
-package DataStructures;
+package ds.common;
 
-// Enqueue -> adding/offering to the back
-// Dequeue -> removing/polling from front
 @SuppressWarnings("unchecked")
-public class Queue<T> extends AbstractStructures<T> implements Structures<T>, Iterable<T> {
+public class Array<T> extends AbstractStructures<T> implements Structures<T>, Iterable<T> {
 
-    public Queue() {
+
+    public Array() {
         this(DEFAULT_INITIAL_CAPACITY);
     }
 
-    public Queue(int capacity) {
+    public Array(T[] initial) {
+        this.array = initial;
+        this.size = initial.length;
+        this.capacity = this.size + this.size / 2;
+    }
+
+    public Array(int capacity) {
         if (capacity <= 0)
             throw new IllegalArgumentException("DataStructures.Array inital size cannot be " + capacity);
         this.size = 0;
@@ -19,17 +24,21 @@ public class Queue<T> extends AbstractStructures<T> implements Structures<T>, It
 
     public T peek() {
         if (size == 0)
-            throw new IllegalAccessError("DataStructures.Queue is empty");
-        return this.array[0];
+            throw new IllegalAccessError("Stack is empty");
+        return array[size - 1];
     }
 
-    public T enqueue(T element) {
+    public T peekAt(int index) {
+        return array[index];
+    }
+
+    public T push(T element) {
         this.checkMutability();
         if (null == element)
             throw new IllegalArgumentException("Element cannot be null");
 
         if (capacity <= size) {
-            capacity += (capacity == 1) ? 1 : capacity / 2;
+            capacity += (capacity == 1) ? 1 : (capacity / 2);
             Object[] newArray = new Object[capacity];
             for (int i = 0; i < size; i++)
                 newArray[i] = this.array[i];
@@ -40,16 +49,13 @@ public class Queue<T> extends AbstractStructures<T> implements Structures<T>, It
         return element;
     }
 
-    public T dequeue() {
+    public T pop() {
         this.checkMutability();
         if (this.isEmpty())
-            throw new IllegalAccessError("DataStructures.Queue is empty");
-        T dequeued = this.array[0];
-        for (int i = 0; i < size - 1; i++) {
-            this.array[i] = this.array[i + 1];
-        }
+            throw new IllegalAccessError("Stack is empty");
+        T popped = this.array[size - 1];
         this.array[size-- - 1] = null;
-        return dequeued;
+        return popped;
     }
 
     public void reverse() {
@@ -73,15 +79,16 @@ public class Queue<T> extends AbstractStructures<T> implements Structures<T>, It
     @Override
     public java.util.Iterator<T> iterator() {
         return new java.util.Iterator<T>() {
+            int current = 0;
 
             @Override
             public boolean hasNext() {
-                return peek() != null;
+                return peekAt(current) != null;
             }
 
             @Override
             public T next() {
-                return array[0];
+                return array[current++];
             }
 
         };
