@@ -1,4 +1,4 @@
-package Main;
+package main;
 
 import ds.common.Array;
 import ds.common.Heap;
