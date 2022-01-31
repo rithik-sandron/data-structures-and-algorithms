@@ -1,6 +1,6 @@
 package ds.common;
 
-@SuppressWarnings("unchecked")
+@SuppressWarnings("unchecked unused")
 public abstract class AbstractStructures<T> implements Structures<T> {
     static final int DEFAULT_INITIAL_CAPACITY = 10;
 

@@ -1,6 +1,6 @@
 package ds.common;
 
-@SuppressWarnings("unchecked")
+@SuppressWarnings("unused")
 public interface Structures<T> {
 
 }

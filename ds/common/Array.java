@@ -1,6 +1,6 @@
 package ds.common;
 
-@SuppressWarnings("unchecked")
+@SuppressWarnings("unchecked unused")
 public class Array<T> extends AbstractStructures<T> implements Structures<T>, Iterable<T> {
 
 
@@ -71,14 +71,16 @@ public class Array<T> extends AbstractStructures<T> implements Structures<T>, It
     @Override
     public String toString() {
         StringBuilder toString = new StringBuilder("[");
-        for (int i = 0; i < size; i++)
-            toString.append(this.array[i] + ", ");
+        for (int i = 0; i < size; i++) {
+            toString.append(this.array[i]);
+            toString.append(", ");
+        }
         return toString.substring(0, toString.length() - 2) + "]";
     }
 
     @Override
     public java.util.Iterator<T> iterator() {
-        return new java.util.Iterator<T>() {
+        return new java.util.Iterator<>() {
             int current = 0;
 
             @Override
@@ -90,7 +92,6 @@ public class Array<T> extends AbstractStructures<T> implements Structures<T>, It
             public T next() {
                 return array[current++];
             }
-
         };
     }
 

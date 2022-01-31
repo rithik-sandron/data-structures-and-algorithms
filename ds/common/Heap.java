@@ -2,7 +2,7 @@ package ds.common;
 
 import java.util.Arrays;
 
-@SuppressWarnings("unchecked")
+@SuppressWarnings("unchecked unused")
 public class Heap<T extends Comparable<T>> extends AbstractStructures<T> implements Structures<T> {
     private byte heapInvariant;
     // private transient Integer[] heapIndex;

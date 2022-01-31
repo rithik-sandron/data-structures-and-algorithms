@@ -1,6 +1,6 @@
-package ds;
+package ds.nodeBased;
 
-@SuppressWarnings("unchecked")
+@SuppressWarnings("unused")
 public class BinarySearchTree {
 
     // member variables

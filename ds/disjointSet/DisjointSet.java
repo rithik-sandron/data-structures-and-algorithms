@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 //Find & Union
 // can do minimum & maximum spanning tree
+@SuppressWarnings("unused")
 public class DisjointSet<T> {
 
     private int size;

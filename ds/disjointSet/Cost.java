@@ -1,8 +1,9 @@
 package ds.disjointSet;
 
+@SuppressWarnings("unused")
 public class Cost implements Comparable<Cost> {
-    private int start;
-    private int end;
+    private final int start;
+    private final int end;
     private int cost;
     private boolean isIncluded;
 
@@ -23,6 +24,10 @@ public class Cost implements Comparable<Cost> {
 
     public int getCost() {
         return cost;
+    }
+
+    public void setCost(int cost) {
+        this.cost = cost;
     }
 
     boolean isIncluded() {

@@ -2,7 +2,7 @@ package ds.common;
 
 // Enqueue -> adding/offering to the back
 // Dequeue -> removing/polling from front
-@SuppressWarnings("unchecked")
+@SuppressWarnings("unchecked unused")
 public class Queue<T> extends AbstractStructures<T> implements Structures<T>, Iterable<T> {
 
     public Queue() {
@@ -11,7 +11,7 @@ public class Queue<T> extends AbstractStructures<T> implements Structures<T>, It
 
     public Queue(int capacity) {
         if (capacity <= 0)
-            throw new IllegalArgumentException("DataStructures.Array inital size cannot be " + capacity);
+            throw new IllegalArgumentException("DataStructures.Array initial size cannot be " + capacity);
         this.size = 0;
         this.capacity = capacity;
         this.array = (T[]) new Object[capacity];
@@ -65,14 +65,16 @@ public class Queue<T> extends AbstractStructures<T> implements Structures<T>, It
     @Override
     public String toString() {
         StringBuilder toString = new StringBuilder("[");
-        for (int i = 0; i < size; i++)
-            toString.append(this.array[i] + ", ");
+        for (int i = 0; i < size; i++) {
+            toString.append(this.array[i]);
+            toString.append(", ");
+        }
         return toString.substring(0, toString.length() - 2) + "]";
     }
 
     @Override
     public java.util.Iterator<T> iterator() {
-        return new java.util.Iterator<T>() {
+        return new java.util.Iterator<>() {
 
             @Override
             public boolean hasNext() {
@@ -83,7 +85,6 @@ public class Queue<T> extends AbstractStructures<T> implements Structures<T>, It
             public T next() {
                 return array[0];
             }
-
         };
     }
 
