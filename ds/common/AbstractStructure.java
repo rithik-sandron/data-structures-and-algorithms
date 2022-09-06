@@ -1,7 +1,7 @@
 package ds.common;
 
 @SuppressWarnings("unchecked unused")
-public abstract class AbstractStructures<T> implements Structures<T> {
+public abstract class AbstractStructure<T> implements Structure<T> {
     static final int DEFAULT_INITIAL_CAPACITY = 10;
 
     private boolean isMutable;
@@ -9,16 +9,14 @@ public abstract class AbstractStructures<T> implements Structures<T> {
     int capacity;
     int size;
 
-    static final class ImmutableStructures<T> implements Structures<T> {
-
+    static final class ImmutableStructures<T> implements Structure<T> {
         transient final private T[] immutableStructure;
-
         ImmutableStructures(T[] immutableStructure) {
             this.immutableStructure = immutableStructure;
         }
     }
 
-    AbstractStructures() {
+    AbstractStructure() {
         this.isMutable = true;
     }
 
@@ -34,6 +32,10 @@ public abstract class AbstractStructures<T> implements Structures<T> {
         return size == 0;
     }
 
+    public T get(int index) {
+        return this.array[index];
+    }
+
     void checkMutability() {
         if(null == this.array) throw new NullPointerException("Structure is null");
         if(!this.isMutable) throw new UnsupportedOperationException("Cannot modify immutable structure");
@@ -44,17 +46,4 @@ public abstract class AbstractStructures<T> implements Structures<T> {
         return new ImmutableStructures<>(data);
     }
 
-    void reverseStructure() {
-        if (this.array == null || this.size == 0)
-            throw new IllegalArgumentException("cannot be empty");
-        T[] reversed = (T[]) new Object[this.capacity];
-        int index = this.size - 1;
-        int newIndex = 0;
-        while (index >= 0) {
-            if (null != this.array[index])
-                reversed[newIndex++] = this.array[index];
-            index--;
-        }
-        this.array = reversed;
-    }
 }

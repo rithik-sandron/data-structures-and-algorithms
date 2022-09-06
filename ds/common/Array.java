@@ -1,8 +1,7 @@
 package ds.common;
 
 @SuppressWarnings("unchecked unused")
-public class Array<T> extends AbstractStructures<T> implements Structures<T>, Iterable<T> {
-
+public class Array<T> extends AbstractStructure<T> implements Structure<T>, Iterable<T> {
 
     public Array() {
         this(DEFAULT_INITIAL_CAPACITY);
@@ -22,6 +21,11 @@ public class Array<T> extends AbstractStructures<T> implements Structures<T>, It
         this.array = (T[]) new Object[capacity];
     }
 
+    public ImmutableStructures<T> toImmutableStructure() {
+        this.checkMutability();
+        return this.toImmutableStructure(this.array);
+    }
+
     public T peek() {
         if (size == 0)
             throw new IllegalAccessError("Stack is empty");
@@ -29,7 +33,7 @@ public class Array<T> extends AbstractStructures<T> implements Structures<T>, It
     }
 
     public T peekAt(int index) {
-        return array[index];
+        return this.get(index);
     }
 
     public T push(T element) {
@@ -56,16 +60,6 @@ public class Array<T> extends AbstractStructures<T> implements Structures<T>, It
         T popped = this.array[size - 1];
         this.array[size-- - 1] = null;
         return popped;
-    }
-
-    public void reverse() {
-        this.checkMutability();
-        this.reverseStructure();
-    }
-
-    public ImmutableStructures<T> toImmutableStructure() {
-        this.checkMutability();
-        return this.toImmutableStructure(this.array);
     }
 
     @Override

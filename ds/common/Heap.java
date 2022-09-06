@@ -3,7 +3,7 @@ package ds.common;
 import java.util.Arrays;
 
 @SuppressWarnings("unchecked unused")
-public class Heap<T extends Comparable<T>> extends AbstractStructures<T> implements Structures<T> {
+public class Heap<T extends Comparable<T>> extends AbstractStructure<T> implements Structure<T> {
     private byte heapInvariant;
     // private transient Integer[] heapIndex;
 
@@ -36,6 +36,11 @@ public class Heap<T extends Comparable<T>> extends AbstractStructures<T> impleme
         this.array = (T[]) new Integer[initialCapacity];
         this.size = 0;
         this.capacity = initialCapacity;
+    }
+
+    public ImmutableStructures<T> toImmutableStructure() {
+        this.checkMutability();
+        return this.toImmutableStructure(this.array);
     }
 
     public boolean isMinHeap() {
@@ -78,11 +83,6 @@ public class Heap<T extends Comparable<T>> extends AbstractStructures<T> impleme
             child = getChildIndex(bubbleIndex);
         }
         size--;
-    }
-
-    public ImmutableStructures<T> toImmutableStructure() {
-        this.checkMutability();
-        return this.toImmutableStructure(this.array);
     }
 
     private int getParentIndex(int child) {

@@ -3,7 +3,7 @@ package ds.common;
 // Enqueue -> adding/offering to the back
 // Dequeue -> removing/polling from front
 @SuppressWarnings("unchecked unused")
-public class Queue<T> extends AbstractStructures<T> implements Structures<T>, Iterable<T> {
+public class Queue<T> extends AbstractStructure<T> implements Structure<T>, Iterable<T> {
 
     public Queue() {
         this(DEFAULT_INITIAL_CAPACITY);
@@ -20,7 +20,7 @@ public class Queue<T> extends AbstractStructures<T> implements Structures<T>, It
     public T peek() {
         if (size == 0)
             throw new IllegalAccessError("DataStructures.Queue is empty");
-        return this.array[0];
+        return this.get(0);
     }
 
     public T enqueue(T element) {
@@ -50,11 +50,6 @@ public class Queue<T> extends AbstractStructures<T> implements Structures<T>, It
         }
         this.array[size-- - 1] = null;
         return dequeued;
-    }
-
-    public void reverse() {
-        this.checkMutability();
-        this.reverseStructure();
     }
 
     public ImmutableStructures<T> toImmutableStructure() {
