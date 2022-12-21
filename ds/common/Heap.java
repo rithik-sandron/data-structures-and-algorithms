@@ -4,8 +4,8 @@ import java.util.Arrays;
 
 @SuppressWarnings("unchecked unused")
 public class Heap<T extends Comparable<T>> extends AbstractStructure<T> implements Structure<T> {
-    private byte heapInvariant;
-    // private transient Integer[] heapIndex;
+
+    private final byte heapInvariant;
 
     public byte getHeapInvariant() {
         return heapInvariant;
@@ -36,11 +36,6 @@ public class Heap<T extends Comparable<T>> extends AbstractStructure<T> implemen
         this.array = (T[]) new Integer[initialCapacity];
         this.size = 0;
         this.capacity = initialCapacity;
-    }
-
-    public ImmutableStructures<T> toImmutableStructure() {
-        this.checkMutability();
-        return this.toImmutableStructure(this.array);
     }
 
     public boolean isMinHeap() {
@@ -105,7 +100,7 @@ public class Heap<T extends Comparable<T>> extends AbstractStructure<T> implemen
     }
 
     private void checkHeapVariant(byte invariant) {
-        if (invariant != 1 || invariant != -1)
+        if (invariant != 1 && invariant != -1)
             throw new IllegalArgumentException("Value of invariant can only be -1 or 1");
     }
 

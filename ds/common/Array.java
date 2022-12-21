@@ -1,7 +1,7 @@
 package ds.common;
 
 @SuppressWarnings("unchecked unused")
-public class Array<T> extends AbstractStructure<T> implements Structure<T>, Iterable<T> {
+public class Array<T> extends AbstractStructure<T> implements Structure<T> {
 
     public Array() {
         this(DEFAULT_INITIAL_CAPACITY);
@@ -21,11 +21,6 @@ public class Array<T> extends AbstractStructure<T> implements Structure<T>, Iter
         this.array = (T[]) new Object[capacity];
     }
 
-    public ImmutableStructures<T> toImmutableStructure() {
-        this.checkMutability();
-        return this.toImmutableStructure(this.array);
-    }
-
     public T peek() {
         if (size == 0)
             throw new IllegalAccessError("Stack is empty");
@@ -36,7 +31,7 @@ public class Array<T> extends AbstractStructure<T> implements Structure<T>, Iter
         return this.get(index);
     }
 
-    public T push(T element) {
+    public void push(T element) {
         this.checkMutability();
         if (null == element)
             throw new IllegalArgumentException("Element cannot be null");
@@ -50,7 +45,6 @@ public class Array<T> extends AbstractStructure<T> implements Structure<T>, Iter
         }
 
         this.array[size++] = element;
-        return element;
     }
 
     public T pop() {
@@ -60,33 +54,6 @@ public class Array<T> extends AbstractStructure<T> implements Structure<T>, Iter
         T popped = this.array[size - 1];
         this.array[size-- - 1] = null;
         return popped;
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder toString = new StringBuilder("[");
-        for (int i = 0; i < size; i++) {
-            toString.append(this.array[i]);
-            toString.append(", ");
-        }
-        return toString.substring(0, toString.length() - 2) + "]";
-    }
-
-    @Override
-    public java.util.Iterator<T> iterator() {
-        return new java.util.Iterator<>() {
-            int current = 0;
-
-            @Override
-            public boolean hasNext() {
-                return peekAt(current) != null;
-            }
-
-            @Override
-            public T next() {
-                return array[current++];
-            }
-        };
     }
 
 }

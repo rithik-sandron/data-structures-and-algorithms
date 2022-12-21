@@ -1,7 +1,7 @@
 package ds.common;
 
 @SuppressWarnings("unchecked unused")
-public abstract class AbstractStructure<T> implements Structure<T> {
+public abstract class AbstractStructure<T> implements Structure<T>, Iterable<T> {
     static final int DEFAULT_INITIAL_CAPACITY = 10;
 
     private boolean isMutable;
@@ -41,9 +41,36 @@ public abstract class AbstractStructure<T> implements Structure<T> {
         if(!this.isMutable) throw new UnsupportedOperationException("Cannot modify immutable structure");
     }
 
-    ImmutableStructures<T> toImmutableStructure(T[] data) {
+    public ImmutableStructures<T> toImmutableStructure() {
         this.isMutable = false;
-        return new ImmutableStructures<>(data);
+        return new ImmutableStructures<>(array);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder toString = new StringBuilder("[");
+        for (int i = 0; i < size; i++) {
+            toString.append(this.array[i]);
+            toString.append(", ");
+        }
+        return toString.substring(0, toString.length() - 2) + "]";
+    }
+
+    @Override
+    public java.util.Iterator<T> iterator() {
+        return new java.util.Iterator<>() {
+            int current = 0;
+
+            @Override
+            public boolean hasNext() {
+                return array[current] != null;
+            }
+
+            @Override
+            public T next() {
+                return array[current++];
+            }
+        };
     }
 
 }

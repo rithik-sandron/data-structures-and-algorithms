@@ -3,7 +3,7 @@ package ds.common;
 // Enqueue -> adding/offering to the back
 // Dequeue -> removing/polling from front
 @SuppressWarnings("unchecked unused")
-public class Queue<T> extends AbstractStructure<T> implements Structure<T>, Iterable<T> {
+public class Queue<T> extends AbstractStructure<T> implements Structure<T> {
 
     public Queue() {
         this(DEFAULT_INITIAL_CAPACITY);
@@ -23,7 +23,7 @@ public class Queue<T> extends AbstractStructure<T> implements Structure<T>, Iter
         return this.get(0);
     }
 
-    public T enqueue(T element) {
+    public void enqueue(T element) {
         this.checkMutability();
         if (null == element)
             throw new IllegalArgumentException("Element cannot be null");
@@ -37,7 +37,6 @@ public class Queue<T> extends AbstractStructure<T> implements Structure<T>, Iter
         }
 
         this.array[size++] = element;
-        return element;
     }
 
     public T dequeue() {
@@ -50,37 +49,6 @@ public class Queue<T> extends AbstractStructure<T> implements Structure<T>, Iter
         }
         this.array[size-- - 1] = null;
         return dequeued;
-    }
-
-    public ImmutableStructures<T> toImmutableStructure() {
-        this.checkMutability();
-        return this.toImmutableStructure(this.array);
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder toString = new StringBuilder("[");
-        for (int i = 0; i < size; i++) {
-            toString.append(this.array[i]);
-            toString.append(", ");
-        }
-        return toString.substring(0, toString.length() - 2) + "]";
-    }
-
-    @Override
-    public java.util.Iterator<T> iterator() {
-        return new java.util.Iterator<>() {
-
-            @Override
-            public boolean hasNext() {
-                return peek() != null;
-            }
-
-            @Override
-            public T next() {
-                return array[0];
-            }
-        };
     }
 
 }

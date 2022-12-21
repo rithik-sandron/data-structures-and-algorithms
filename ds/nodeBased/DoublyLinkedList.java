@@ -2,22 +2,25 @@ package ds.nodeBased;
 
 @SuppressWarnings("unused")
 
-// insertion happens at last index
-// deletions happens at start index
+// insertion happens at both index
+// deletions happens at both index
 public class DoublyLinkedList<E> {
 
     public static class Node<E> {
         E element;
+        Node<E> leftNode;
         Node<E> rightNode;
 
         public Node(E element) {
             this.element = element;
             this.rightNode = null;
+            this.leftNode = null;
         }
 
         public Node() {
             this.element = null;
             this.rightNode = null;
+            this.leftNode = null;
         }
     }
 
